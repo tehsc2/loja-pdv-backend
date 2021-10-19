@@ -19,4 +19,5 @@ public class Produto {
     private String tipoProduto;
     private String cor;
     private String tamanho;
+    private String idLoja;
 }

@@ -2,8 +2,8 @@ package com.pdv.pdv.entities;
 
 import com.pdv.pdv.entities.enums.FormaPagamentoEnum;
 import com.pdv.pdv.entities.enums.StatusPedidoEnum;
+import com.pdv.pdv.exceptions.ProdutoSemEstoqueException;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -25,7 +25,6 @@ public class Pedido {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "pedido_id")
     private List<ItemPedido> itensPedido;
-    @CreatedDate
     private LocalDateTime dataPedido;
     @Enumerated(EnumType.STRING)
     private FormaPagamentoEnum formaPagamento;
@@ -51,7 +50,13 @@ public class Pedido {
         this.getItensPedido().forEach(itemPedido -> {
             Produto produto = itemPedido.getProduto();
 
-            produto.setQuantidade(itemPedido.getQuantidade() - produto.getQuantidade());
+            long quantidade = produto.getQuantidade() - itemPedido.getQuantidade();
+
+            if (quantidade > 0) {
+                produto.setQuantidade(quantidade);
+            } else {
+                throw new ProdutoSemEstoqueException("PRODUTO SEM ESTOQUE DISPONIVEL", produto.getNome());
+            }
         });
     }
 }
