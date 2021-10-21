@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/pedidos")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class PedidoController {
 
     private final PedidoRepository pedidoRepository;
