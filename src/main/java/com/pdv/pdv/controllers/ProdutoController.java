@@ -44,8 +44,7 @@ public class ProdutoController {
             }
         }
 
-        produtoRepository.save(produto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
     }
 
     @DeleteMapping("/{idProduto}")

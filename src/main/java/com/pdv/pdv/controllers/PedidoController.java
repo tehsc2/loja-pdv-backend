@@ -34,7 +34,7 @@ public class PedidoController {
     }
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> createUptadePedido(@RequestBody Pedido pedidoRequest) throws Exception {
+    public ResponseEntity<?> createUptadePedido(@RequestBody Pedido pedidoRequest) {
         Pedido pedido = null;
 
         if (pedidoRequest.getItensPedido() != null && !pedidoRequest.getItensPedido().isEmpty()){
@@ -42,13 +42,11 @@ public class PedidoController {
 
             List<Produto> produtos = produtoRepository.findAllById(idsProduto);
 
-            pedidoRequest.getItensPedido().forEach(itemPedido -> {
-                produtos.forEach(produto -> {
-                    if (itemPedido.getProduto().getId().equals(produto.getId())) {
-                        itemPedido.setProduto(produto);
-                    }
-                });
-            });
+            pedidoRequest.getItensPedido().forEach(itemPedido -> produtos.forEach(produto -> {
+                if (itemPedido.getProduto().getId().equals(produto.getId())) {
+                    itemPedido.setProduto(produto);
+                }
+            }));
 
             List<String> produtosSemEstoque = pedidoRequest.verificaProdutosSemEstoque();
 
@@ -70,8 +68,7 @@ public class PedidoController {
 
         if (pedido != null) {
             pedido.setStatusPedido(pedidoRequest.getStatusPedido());
-            pedidoRepository.save(pedido);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).body(pedidoRepository.save(pedido));
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("PEDIDO NÃO FOI CRIADO/ATUALIZADO", pedidoRequest));

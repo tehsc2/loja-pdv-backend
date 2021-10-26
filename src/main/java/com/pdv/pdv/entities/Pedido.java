@@ -52,7 +52,7 @@ public class Pedido {
 
             long quantidade = produto.getQuantidade() - itemPedido.getQuantidade();
 
-            if (quantidade > 0) {
+            if (quantidade >= 0) {
                 produto.setQuantidade(quantidade);
             } else {
                 throw new ProdutoSemEstoqueException("PRODUTO SEM ESTOQUE DISPONIVEL", produto.getNome());
