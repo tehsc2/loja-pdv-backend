@@ -11,11 +11,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/pedidos/1",
+					"raw": "https://loja-pdv.herokuapp.com/pedidos/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"pedidos",
 						"1"
@@ -30,11 +32,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/pedidos/1?status=CANCELADO",
+					"raw": "https://loja-pdv.herokuapp.com/pedidos/1?status=CANCELADO",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"pedidos",
 						"1"
@@ -64,11 +68,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/pedidos",
+					"raw": "https://loja-pdv.herokuapp.com/pedidos",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"pedidos"
 					]
@@ -91,11 +97,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/pedidos",
+					"raw": "https://loja-pdv.herokuapp.com/pedidos",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"pedidos"
 					]
@@ -109,14 +117,47 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/pedidos/1",
+					"raw": "https://loja-pdv.herokuapp.com/pedidos/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"pedidos",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar Login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://loja-pdv.herokuapp.com/usuarios/login?login=ESTHER&senha=12321",
+					"protocol": "https",
+					"host": [
+						"loja-pdv",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"usuarios",
+						"login"
+					],
+					"query": [
+						{
+							"key": "login",
+							"value": "ESTHER"
+						},
+						{
+							"key": "senha",
+							"value": "12321"
+						}
 					]
 				}
 			},
@@ -128,11 +169,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/usuarios/1",
+					"raw": "https://loja-pdv.herokuapp.com/usuarios/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"usuarios",
 						"1"
@@ -156,11 +199,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/usuarios",
+					"raw": "https://loja-pdv.herokuapp.com/usuarios",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"usuarios"
 					]
@@ -183,11 +228,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/usuarios",
+					"raw": "https://loja-pdv.herokuapp.com/usuarios",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"usuarios"
 					]
@@ -201,11 +248,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/usuarios/1",
+					"raw": "https://loja-pdv.herokuapp.com/usuarios/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"usuarios",
 						"1"
@@ -229,11 +278,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/produtos",
+					"raw": "https://loja-pdv.herokuapp.com/produtos",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"produtos"
 					]
@@ -256,11 +307,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/produtos",
+					"raw": "https://loja-pdv.herokuapp.com/produtos",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"produtos"
 					]
@@ -274,11 +327,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/produtos/1",
+					"raw": "https://loja-pdv.herokuapp.com/produtos/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"produtos",
 						"1"
@@ -293,11 +348,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/produtos/1",
+					"raw": "https://loja-pdv.herokuapp.com/produtos/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"loja-pdv",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"produtos",
 						"1"
