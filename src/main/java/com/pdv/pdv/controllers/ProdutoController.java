@@ -2,7 +2,6 @@ package com.pdv.pdv.controllers;
 
 import com.pdv.pdv.entities.Produto;
 import com.pdv.pdv.entities.Usuario;
-import com.pdv.pdv.entities.enums.StatusPedidoEnum;
 import com.pdv.pdv.repositories.ProdutoRepository;
 import com.pdv.pdv.repositories.UsuarioRepository;
 import com.pdv.pdv.utils.ErrorMessage;
@@ -32,24 +31,48 @@ public class ProdutoController {
     }
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT}, value = "/{idUsuario}")
-    public ResponseEntity<?> post(@RequestBody Produto produto, @PathVariable Long idUsuario){
+    public ResponseEntity<?> post(@RequestBody Produto produtoRequest, @PathVariable Long idUsuario){
 
-        if (produto.getIdLoja() == null) {
+        if (produtoRequest.getIdLoja() == null) {
             Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
 
             if (usuario != null){
-                produto.setIdLoja(usuario.getIdLoja());
+                produtoRequest.setIdLoja(usuario.getIdLoja());
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("USUARIO NAO ENCONTRADO", "ID USUARIO: " + idUsuario));
             }
         }
 
+        Produto produto = produtoRequest;
+
+        if (produtoRequest.getId() != null) {
+            Produto produtoUpdate = produtoRepository.findById(produtoRequest.getId()).orElse(null);
+
+            if (produtoUpdate != null) {
+                produto = new Produto();
+                produto.setQuantidade(produtoRequest.getQuantidade() != null ? produtoRequest.getQuantidade() : produtoUpdate.getQuantidade());
+                produto.setTipoProduto(produtoUpdate.getTipoProduto());
+                produto.setIdLoja(produtoUpdate.getIdLoja());
+                produto.setId(produtoUpdate.getId());
+                produto.setCor(produtoUpdate.getCor());
+                produto.setPreco(produtoRequest.getPreco() != null ? produtoRequest.getPreco() : produtoUpdate.getPreco());
+                produto.setDescricao(produtoUpdate.getDescricao());
+                produto.setNome(produtoUpdate.getNome());
+                produto.setTamanho(produtoUpdate.getTamanho());
+            }
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
     }
 
     @DeleteMapping("/{idProduto}")
     public ResponseEntity<?> deletarProduto(@PathVariable Long idProduto) {
-        produtoRepository.deleteById(idProduto);
-        return ResponseEntity.ok().build();
+        Produto produto = produtoRepository.findById(idProduto).orElse(null);
+
+        if (produto == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        produto.setTipoProduto("DELETADO");
+        return ResponseEntity.ok().body(produtoRepository.save(produto));
     }
 }
