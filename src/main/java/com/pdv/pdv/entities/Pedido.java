@@ -34,7 +34,7 @@ public class Pedido {
 
     public void calcularValorTotal(){
         this.setValorTotal(this.getItensPedido().stream()
-                .map(itemPedido -> itemPedido.getProduto().getPreco().multiply(BigDecimal.valueOf(itemPedido.getProduto().getQuantidade())))
+                .map(itemPedido -> itemPedido.getProduto().getPreco().multiply(BigDecimal.valueOf(itemPedido.getQuantidade())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .add(this.getEntrega().getValorEntrega()));
     }
