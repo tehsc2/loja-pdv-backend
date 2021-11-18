@@ -15,6 +15,6 @@ public class Usuario {
     private Long id;
     private String usuario;
     private String senha;
-    private String idLoja;
+    private Long idLoja;
     private Boolean admin;
 }

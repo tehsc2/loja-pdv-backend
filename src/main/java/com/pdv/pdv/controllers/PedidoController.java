@@ -2,9 +2,11 @@ package com.pdv.pdv.controllers;
 
 import com.pdv.pdv.entities.Pedido;
 import com.pdv.pdv.entities.Produto;
+import com.pdv.pdv.entities.Usuario;
 import com.pdv.pdv.entities.enums.StatusPedidoEnum;
 import com.pdv.pdv.repositories.PedidoRepository;
 import com.pdv.pdv.repositories.ProdutoRepository;
+import com.pdv.pdv.repositories.UsuarioRepository;
 import com.pdv.pdv.utils.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -23,14 +26,19 @@ public class PedidoController {
 
     private final PedidoRepository pedidoRepository;
     private final ProdutoRepository produtoRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @GetMapping("/{idUsuario}")
     public ResponseEntity<?> getPedidosPorVendedor(@PathVariable Long idUsuario, @RequestParam(required = false) StatusPedidoEnum status) {
-        if (status != null) {
-            return ResponseEntity.ok(pedidoRepository.findAllByStatusPedidoAndVendedorId(status, idUsuario));
-        }
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
 
-        return ResponseEntity.ok(pedidoRepository.findAllByVendedorId(idUsuario));
+        if (usuario != null) {
+            if (status != null) {
+                return ResponseEntity.ok(pedidoRepository.findAllByStatusPedidoAndVendedorIdLoja(status, usuario.getIdLoja()));
+            }
+            return ResponseEntity.ok(pedidoRepository.findAllByVendedorIdLoja(usuario.getIdLoja()));
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
